@@ -53,8 +53,6 @@
 </template>
 
 <script>
-  import ajax from '../../api/ajax'
-  import {reqLoginUser} from '../../api/index'
   import {mapActions} from 'vuex'
   export default {
     data(){
@@ -69,7 +67,6 @@
       ...mapActions(['loginUser']),
       login() {
         this.loginUser(this.loginForm)
-
       }
     }
   }
