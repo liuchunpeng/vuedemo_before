@@ -12,11 +12,11 @@
         <form>
           <div class="on">
             <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" v-model="loginForm.name">
+              <input type="tel" maxlength="11" placeholder="手机号" v-model="loginForm.userName">
               <button disabled="disabled" class="get_verification">获取验证码</button>
             </section>
             <section class="login_verification">
-              <input type="tel" maxlength="8" placeholder="验证码" v-model="loginForm.psd">
+              <input type="tel" maxlength="8" placeholder="验证码" v-model="loginForm.passWord">
             </section>
             <section class="login_hint">
               温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
@@ -53,27 +53,22 @@
 </template>
 
 <script>
-  import {myAxios} from '../../api/request'
+  import ajax from '../../api/ajax'
+  import {reqLoginUser} from '../../api/index'
+  import {mapActions} from 'vuex'
   export default {
     data(){
       return {
-        loginForm: {
-          name: '',
-          psd: '',
+        loginForm :{
+          userName: '',
+          passWord: ''
         }
       }
     },
     methods:{
-      async login() {
-        console.log(this.loginForm)
-        let data = {
-          username: this.loginForm.name,
-          password: this.loginForm.psd
-        }
-        console.log(data)
-        myAxios.post('/signIn',data)
-            .then(res=>console.log(res))
-            .then(msg=>console.log(msg))
+      ...mapActions(['loginUser']),
+      login() {
+        this.loginUser(this.loginForm)
 
       }
     }
